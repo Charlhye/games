@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.content.ClipData.Item
+import android.widget.TextView
 import android.widget.Toast
 import java.nio.file.Files.size
 import java.util.Random;
@@ -18,7 +19,8 @@ class MainActivity : AppCompatActivity() {
     var p1 = ArrayList<Int>()
     var p2 = ArrayList<Int>()
     var buttons = ArrayList<Int>()
-
+    var sp1 = 0
+    var sp2 = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         buttons.add(R.id.button7)
         buttons.add(R.id.button8)
         buttons.add(R.id.button9)
-
 
     }
 
@@ -103,7 +104,7 @@ class MainActivity : AppCompatActivity() {
             if (p1.contains(i) && p1.contains(i+3) && p1.contains(i+6)){
                 win = 1
             }
-            if (p2.contains(i) && p2.contains(i+3) && p2.contains(i+6)){
+            else if (p2.contains(i) && p2.contains(i+3) && p2.contains(i+6)){
                 win = 2
             }
         }
@@ -111,14 +112,14 @@ class MainActivity : AppCompatActivity() {
             if (p1.contains(i) && p1.contains(i+1) && p1.contains(i+2)){
                 win = 1
             }
-            if (p2.contains(i) && p2.contains(i+1) && p2.contains(i+2)){
+            else if (p2.contains(i) && p2.contains(i+1) && p2.contains(i+2)){
                 win = 2
             }
         }
         if (p1.contains(1) && p1.contains(5) && p1.contains(9)){
             win = 1
         }
-        if (p2.contains(3) && p2.contains(5) && p2.contains(7)){
+        else if (p2.contains(3) && p2.contains(5) && p2.contains(7)){
             win = 2
         }
 
@@ -126,7 +127,16 @@ class MainActivity : AppCompatActivity() {
             for (button in buttons){
                 findViewById<Button>(button).isEnabled = false
             }
+            val scorep1 = findViewById(R.id.scoreP1) as TextView
+            val scorep2 = findViewById(R.id.scoreP2) as TextView
             Toast.makeText(this, "GANO EL JUGADOR $win", Toast.LENGTH_LONG).show()
+            if(win ==1){
+                sp1++
+            }else{
+                sp2++
+            }
+            scorep1.text = ""+sp1
+            scorep2.text = ""+sp2
         }
     }
 
